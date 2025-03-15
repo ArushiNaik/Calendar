@@ -6,124 +6,96 @@
     <title>Calendar</title>
     <style>
         * {box-sizing: border-box; margin: 0; padding: 0;}
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to right, #74ebd5, #acb6e5);
-            color: #333;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        h1 {
-            font-size: 36px;
-            color: #fff;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .calendar-container {
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            padding: 20px;
-            max-width: 450px;
-            width: 100%;
-            transition: transform 0.3s;
-        }
-
-        .calendar-container:hover {
-            transform: translateY(-5px);
-        }
+        body {font-family: Verdana, sans-serif; text-align: center; padding: 20px;}
 
         .month {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: linear-gradient(to right, #6dd5ed, #2193b0);
-            border-radius: 15px;
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            background: #1abc9c;
+            text-align: center;
+            margin-left: 50px;
             position: relative;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .month ul {padding: 0;}
+        .month ul li {
+            list-style-type: none;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
         .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
             cursor: pointer;
             font-size: 24px;
-            color: #fff;
-            transition: transform 0.2s ease;
-            user-select: none;
+            color: white;
         }
 
-        .prev:hover, .next:hover {
-            transform: scale(1.2);
-            color: #fffa65;
-        }
+        .prev {left: 20px;}
+        .next {right: 20px;}
 
         .weekdays, .days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 5px;
+            max-width: 400px;
+            margin-left: 50px;
             text-align: center;
         }
 
-        .weekdays div {
-            font-weight: bold;
-            color: #555;
+        .weekdays {
+            background-color: #ddd;
             padding: 10px;
-            background: #f0f0f0;
-            border-radius: 8px;
-            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .weekdays div, .days div {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .days {
+            background: #eee;
+            padding: 10px;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
 
         .days div {
-            padding: 15px;
-            background: #fff;
-            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
-            font-size: 16px;
-            color: #444;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: white;
+            transition: background 0.3s, transform 0.2s;
         }
 
         .days div:hover {
-            background: #4CAF50;
-            color: #fff;
+            background: #16a085;
+            color: white;
             transform: scale(1.1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .active {
             background: #1abc9c;
             color: red;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            border: 2px "red" solid;
+            border: 2px red solid;
         }
 
         .fade-out {
             opacity: 0;
             transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .fade-in {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        @media (max-width: 420px) {
-            .weekdays div, .days div {
-                font-size: 12px;
-                padding: 8px;
-            }
+        @media screen and (max-width: 420px) {
+            .weekdays div, .days div {font-size: 14px; padding: 8px;}
         }
     </style>
 </head>
