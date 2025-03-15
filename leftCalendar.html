@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+        * {box-sizing: border-box; margin: 0; padding: 0;}
+        body {font-family: Verdana, sans-serif; text-align: center; padding: 20px;}
+
+        .month {
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            background: #b0e3eb;
+            text-align: center;
+            margin-left:100px;
+            position: relative;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .month ul {padding: 0;}
+        .month ul li {
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+
+        .prev {left: 20px;}
+        .next {right: 20px;}
+
+        .weekdays, .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            max-width: 400px;
+            margin-left: 100px;
+            text-align: center;
+        }
+
+        .weekdays {
+            background-color: #ddd;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .weekdays div, .days div {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .days {
+            background: #eee;
+            padding: 10px;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            margin-left: 100px;
+        }
+
+        .days div {
+            cursor: pointer;
+            background: white;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .days div:hover {
+            background: #3e8f8a;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .active {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media screen and (max-width: 420px) {
+            .weekdays div, .days div {font-size: 14px; padding: 8px;}
+        }
+    </style>
+</head>
+<body style="background-color: rgb(213, 230, 239);">
+
+<h1 style="color:white">Calendar</h1>
+
+<div class="month">
+    <span class="prev" onclick="changeMonth(-1)">&#10094;</span>
+    <ul>
+        <li id="month-year">August <br><span style="font-size:18px">2021</span></li>
+    </ul>
+    <span class="next" onclick="changeMonth(1)">&#10095;</span>
+</div>
+
+<div class="weekdays">
+    <div>Mo</div> <div>Tu</div> <div>We</div> <div>Th</div> <div>Fr</div> <div>Sa</div> <div>Su</div>
+</div>
+
+<div class="days" id="calendar-days"></div>
+
+<script>
+    let currentDate = new Date();
+
+    function renderCalendar() {
+        const daysContainer = document.getElementById("calendar-days");
+        const monthYear = document.getElementById("month-year");
+
+        let year = currentDate.getFullYear();
+        let month = currentDate.getMonth();
+        let firstDay = new Date(year, month, 1).getDay();
+        let lastDate = new Date(year, month + 1, 0).getDate();
+        let today = new Date();
+
+        monthYear.innerHTML = `${currentDate.toLocaleString('default', { month: 'long' })} <br><span style="font-size:18px">${year}</span>`;
+
+        let daysHTML = "";
+
+      
+        let startDay = firstDay === 0 ? 6 : firstDay - 1;
+
+        for (let i = 0; i < startDay; i++) {
+            daysHTML += `<div></div>`; 
+        }
+
+        for (let i = 1; i <= lastDate; i++) {
+            let isActive = (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) ? "active" : "";
+            daysHTML += `<div class="${isActive}">${i}</div>`;
+        }
+
+        
+        daysContainer.classList.add("fade-out");
+        setTimeout(() => {
+            daysContainer.innerHTML = daysHTML;
+            daysContainer.classList.remove("fade-out");
+            daysContainer.classList.add("fade-in");
+        }, 300);
+    }
+
+    function changeMonth(step) {
+        currentDate.setMonth(currentDate.getMonth() + step);
+        renderCalendar();
+    }
+
+    renderCalendar();
+</script>
+
+</body>
+</html>
