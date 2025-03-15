@@ -22,6 +22,7 @@
 
         .month ul {padding: 0;}
         .month ul li {
+            list-style-type: none;
             font-size: 20px;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -79,7 +80,8 @@
 
         .active {
             background: #1abc9c;
-            color: white;
+            color: red;
+            border: 2px red solid;
         }
 
         .fade-out {
@@ -119,8 +121,8 @@
     let currentDate = new Date();
 
     function renderCalendar() {
-        const daysContainer = document.getElementById("calendar-days");
-        const monthYear = document.getElementById("month-year");
+        const daysContainer = document.querySelector("#calendar-days");
+        const monthYear = document.querySelector("#month-year");
 
         let year = currentDate.getFullYear();
         let month = currentDate.getMonth();
@@ -139,9 +141,10 @@
             daysHTML += `<div></div>`; // Empty placeholders for alignment
         }
 
+        
         for (let i = 1; i <= lastDate; i++) {
-            let isActive = (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) ? "active" : "";
-            daysHTML += `<div class="${isActive}">${i}</div>`;
+            let isActive = (i === today.getDate() && month === today.getMonth() && year == today.getFullYear()) ? "active" : "";
+            daysHTML += `<div class="${isActive}"">${i}</div>`;
         }
 
         // Add fade-out effect before updating days
@@ -157,6 +160,10 @@
     function changeMonth(step) {
         currentDate.setMonth(currentDate.getMonth() + step);
         renderCalendar();
+    }
+
+    let showReminders = (day) => {
+
     }
 
     renderCalendar();
