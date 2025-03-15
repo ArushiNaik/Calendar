@@ -145,6 +145,7 @@
         }
 
         // Add fade-out effect before updating days
+        daysContainer.classList.remove("fade-in");
         daysContainer.classList.add("fade-out");
         setTimeout(() => {
             daysContainer.innerHTML = daysHTML;
