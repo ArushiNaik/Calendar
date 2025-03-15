@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>    
+		<title>To do list</title>
+		<meta charset="utf-8">
+		
+		<style> 
+			ul{
+				list-style:none;
+				padding:0px;
+				margin:0px;
+			}	
+			li{
+				border: 1px solid #ccc; 
+				background-color:#eee; 
+				padding: 5px,10px; 
+				color:#000; 
+				;width:300px }
+			li span{padding-left:10px}
+			h1{ margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline;}
+            header {background: #42adf5;width:400px;color: black;font-size: 48px;text-align: center;line-height: 1.5em;border: 1px solid black;}
+            article {background: white; overflow: auto; width:400px; border: 1px solid black;}
+		</style>
+
+
+         
+	</head>
+	<body>
+		<header>
+          <h1> Reminders </h1>
+       </header>
+		<article>	
+			<p> <input type="text" id="inItemText">
+			 <input type="button" id="btnAdd" value="+">
+			 <input type="button" id="btnClr" value="Clear"></p>
+			<ul id="todolist">	
+			</ul>
+				
+		</article>
+		
+
+
+		<script>
+
+			const addButton=document.getElementById('btnAdd');
+			const todoList= document.getElementById('todolist');
+			const inputField = document.getElementById('inItemText');
+			const lastItem =document.getElementById('btnClr');
+
+			addButton.addEventListener('click',function() {
+
+				const itemText = inputField.value.trim();
+	
+				const newLi = document.createElement('li'); 
+				newLi.textContent=itemText;
+	
+				todoList.appendChild(newLi);
+	
+				inputField.value='';
+				inputField.focus();
+			});
+
+			lastItem.addEventListener('click', function(){
+
+				const lastItem=todoList.lastElementChild;
+				if(lastItem){
+					todoList.removeChild(lastItem);
+
+				}
+			});
+	
+					
+			</script>
+	</body>
+</html>
